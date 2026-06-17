@@ -1,78 +1,411 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Head from "next/head";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
-    >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Head>
+        <title>Toral Banerjee — Portfolio</title>
+        <meta name="description" content="AI agents, HCI, and design" />
+      </Head>
+
+      <nav className="fixed top-0 w-full z-50 px-10 py-6 flex justify-between items-center backdrop-blur-sm">
+        <span className="text-lg font-bold tracking-tight text-white">toral.dev</span>
+        <div className="flex gap-8 text-base text-white/80">
+          <a href="#about" className="hover:text-white transition">About</a>
+          <a href="#projects" className="hover:text-white transition">Projects</a>
+          <a href="#skills" className="hover:text-white transition">Skills</a>
+          
+          <a href="mailto:toralbanerjee2006@gmail.com" className="hover:text-white transition">Contact</a>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </nav>
+
+      <section
+        className="relative min-h-screen flex items-center px-10 md:px-20"
+        style={{
+          background: "radial-gradient(circle at 15% 30%, rgb(209, 131, 169) 0%, rgb(120, 80, 130) 30%, rgb(58, 52, 91) 70%, rgb(40, 35, 65) 100%)"
+        }}
+      >
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Hey there, I am Toral!
+            </h1>
+            <p className="text-lg text-white/70 mb-8 leading-relaxed">
+              Building AI agents that put humans first. Junior undergrad exploring the intersection of agents and human-computer interaction.
+            </p>
+            <div className="flex gap-4">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 border border-white/40 text-white rounded-lg hover:bg-white hover:text-purple-900 transition font-semibold"
+              >
+                Resume
+              </a>
+              <a
+                href="#projects"
+                className="px-6 py-3 border border-white/40 text-white rounded-lg hover:bg-white hover:text-purple-900 transition font-semibold"
+              >
+                View Projects
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col items-center"
           >
-            Documentation
-          </a>
+            <div className="w-52 h-52 md:w-56 md:h-56">
+              <img
+                src="/pixel-avatar.png"
+                alt="Toral Banerjee"
+                className="w-full h-full object-cover"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+            <a
+              href="mailto:toralbanerjee2006@gmail.com"
+              className="mt-6 text-white/80 font-mono text-sm tracking-wide hover:text-white transition"
+            >
+              toralbanerjee2006@gmail.com
+            </a>
+          </motion.div>
+
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section
+        id="about"
+        className="relative py-32 px-10 md:px-20"
+        style={{
+          background: "linear-gradient(180deg, rgb(40, 35, 65) 0%, rgb(58, 52, 91) 50%, rgb(80, 60, 100) 100%)"
+        }}
+      >
+        <div className="max-w-5xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-pink-300 mb-6 font-mono"
+          >
+            // about
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-10 leading-tight"
+          >
+            Human first.<br />
+            Then make it <span className="italic text-pink-300">smart.</span>
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-6 text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl"
+          >
+            <p>
+              Most AI gets built capability-first. I am more interested in the other order: start with the <span className="text-pink-300">human</span>, the <span className="text-pink-300">trust</span>, the <span className="text-pink-300">interface</span> — then make it smart.
+            </p>
+            <p>
+              That is why I work at the intersection of <span className="text-white font-semibold">AI agents</span> and <span className="text-white font-semibold">human-computer interaction</span>.
+            </p>
+            <p>
+              I am a junior undergrad building agents that people can actually rely on — not demos. Scroll down to see what that looks like.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section
+        id="projects"
+      
+        className="relative py-32 px-10 md:px-20"
+        style={{
+          background: "linear-gradient(180deg, rgb(80, 60, 100) 0%, rgb(95, 65, 115) 50%, rgb(80, 60, 100) 100%)"
+        }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-pink-300 mb-6 font-mono text-center"
+          >
+            // projects
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight text-center"
+          >
+            Things I have <span className="italic text-pink-300">built.</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-white/60 mb-16 text-center"
+          >
+            Real, working tools — built to be inspected.
+          </motion.p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <motion.a
+              href="https://agent-trajectory-inspector.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="group block relative overflow-hidden rounded-2xl border border-white/10 p-7 transition-all duration-500 hover:border-pink-300/40"
+              style={{ background: "rgba(255, 255, 255, 0.03)" }}
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                style={{
+                  background: "radial-gradient(circle at 30% 20%, rgba(209, 131, 169, 0.3) 0%, rgba(120, 80, 130, 0.2) 40%, transparent 70%)"
+                }}
+              />
+
+              <div className="w-11 h-11 rounded-lg bg-pink-300/10 border border-pink-300/30 flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-200 transition-colors">
+                Agent Trajectory Inspector
+              </h3>
+
+              <p className="text-sm text-white/70 leading-relaxed mb-6">
+                A lightweight web tool to inspect, replay, and annotate AI agent runs — built to triage where LLM agents go wrong.
+              </p>
+
+              <div className="flex flex-wrap gap-1.5">
+                {["React", "Vite", "Groq API", "Llama 3.3"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 text-xs bg-white/5 text-white/70 rounded-md border border-white/10 font-mono"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.a>
+
+            <motion.a
+              href="https://decision-receipt.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="group block relative overflow-hidden rounded-2xl border border-white/10 p-7 transition-all duration-500 hover:border-pink-300/40"
+              style={{ background: "rgba(255, 255, 255, 0.03)" }}
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                style={{
+                  background: "radial-gradient(circle at 30% 20%, rgba(209, 131, 169, 0.3) 0%, rgba(120, 80, 130, 0.2) 40%, transparent 70%)"
+                }}
+              />
+
+              <div className="w-11 h-11 rounded-lg bg-pink-300/10 border border-pink-300/30 flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-200 transition-colors">
+                Decision Receipt
+              </h3>
+
+              <p className="text-sm text-white/70 leading-relaxed mb-6">
+                A prototype that makes AI-driven loan decisions legible to the person on the receiving end — with calibrated uncertainty, fairness shadow-runs, and auto-drafted appeals.
+              </p>
+
+              <div className="flex flex-wrap gap-1.5">
+                {["React", "Vite", "Tailwind", "Groq API"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 text-xs bg-white/5 text-white/70 rounded-md border border-white/10 font-mono"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.a>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="rounded-2xl border border-dashed border-white/10 p-7 flex flex-col items-center justify-center text-center min-h-[280px]"
+            >
+              <p className="text-white/30 text-sm font-mono">
+                more soon ✦
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+      
+
+      <section
+        id="skills"
+        className="relative py-32 px-10 md:px-20"
+        style={{
+          background: "linear-gradient(180deg, rgb(80, 60, 100) 0%, rgb(58, 52, 91) 50%, rgb(40, 35, 65) 100%)"
+        }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-pink-300 mb-6 font-mono"
+          >
+            // skills
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-16 leading-tight"
+          >
+            What I work <span className="italic text-pink-300">with.</span>
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="border border-white/10 rounded-2xl p-8 backdrop-blur-sm bg-white/5"
+            >
+              <h3 className="text-xs tracking-[0.2em] uppercase text-pink-300 mb-5 font-mono">
+                Programming Languages
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "Java", "TypeScript", "JavaScript", "R (Biostatistics)", "SQL"].map((skill) => (
+                  <span key={skill} className="px-3 py-1.5 text-sm bg-white/10 text-white rounded-full border border-white/10 hover:bg-pink-300/20 hover:border-pink-300/40 transition">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="border border-white/10 rounded-2xl p-8 backdrop-blur-sm bg-white/5"
+            >
+              <h3 className="text-xs tracking-[0.2em] uppercase text-pink-300 mb-5 font-mono">
+                AI Systems & Agentic Systems
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["LLM Orchestration", "OpenAI APIs", "Agent-Driven Workflows", "Tool Calling Logic", "Prompt Engineering", "Digital Phenotyping"].map((skill) => (
+                  <span key={skill} className="px-3 py-1.5 text-sm bg-white/10 text-white rounded-full border border-white/10 hover:bg-pink-300/20 hover:border-pink-300/40 transition">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="border border-white/10 rounded-2xl p-8 backdrop-blur-sm bg-white/5"
+            >
+              <h3 className="text-xs tracking-[0.2em] uppercase text-pink-300 mb-5 font-mono">
+                Deep Learning
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["PyTorch", "CUDA (basic)", "Transformers (HF)", "NumPy"].map((skill) => (
+                  <span key={skill} className="px-3 py-1.5 text-sm bg-white/10 text-white rounded-full border border-white/10 hover:bg-pink-300/20 hover:border-pink-300/40 transition">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="border border-white/10 rounded-2xl p-8 backdrop-blur-sm bg-white/5"
+            >
+              <h3 className="text-xs tracking-[0.2em] uppercase text-pink-300 mb-5 font-mono">
+                Machine Learning & Data
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["K-Means / RFM Clustering", "Predictive Modeling", "Statistical Inference", "Apache Spark", "Tableau", "Matplotlib"].map((skill) => (
+                  <span key={skill} className="px-3 py-1.5 text-sm bg-white/10 text-white rounded-full border border-white/10 hover:bg-pink-300/20 hover:border-pink-300/40 transition">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="border border-white/10 rounded-2xl p-8 backdrop-blur-sm bg-white/5 md:col-span-2"
+            >
+              <h3 className="text-xs tracking-[0.2em] uppercase text-pink-300 mb-5 font-mono">
+                Software & Infrastructure
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["Linux (Bash)", "Git", "AWS (basic)", "PostgreSQL", "MySQL", "Modular Software Design", "Statistical Modeling"].map((skill) => (
+                  <span key={skill} className="px-3 py-1.5 text-sm bg-white/10 text-white rounded-full border border-white/10 hover:bg-pink-300/20 hover:border-pink-300/40 transition">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+    </>
   );
 }
