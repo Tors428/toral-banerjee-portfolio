@@ -1,5 +1,57 @@
 import Head from "next/head";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+const TRAIL_ICONS = [
+  `<svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(244,192,209,0.75)" stroke="none"><ellipse cx="12" cy="16" rx="4.5" ry="3.8"/><ellipse cx="5.5" cy="11" rx="1.8" ry="2.3"/><ellipse cx="9" cy="7" rx="1.8" ry="2.3"/><ellipse cx="15" cy="7" rx="1.8" ry="2.3"/><ellipse cx="18.5" cy="11" rx="1.8" ry="2.3"/></svg>`,
+  `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(207,180,235,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(159,225,203,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>`,
+  `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(250,199,117,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14h12l-1 7H7l-1-7z"/><path d="M8 14c0-3 1.5-5 4-5s4 2 4 5"/><path d="M12 6V4"/><path d="M10 4c0-1 1-2 2-2s2 1 2 2"/></svg>`,
+  `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(237,147,177,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,
+];
+
+function CursorTrail() {
+  const [trails, setTrails] = useState([]);
+  const lastSpawn = useRef(0);
+  const idx = useRef(0);
+  const nextId = useRef(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const onMove = (e) => {
+      const now = performance.now();
+      if (now - lastSpawn.current < 140) return;
+      lastSpawn.current = now;
+      const id = nextId.current++;
+      const iconIdx = idx.current++ % TRAIL_ICONS.length;
+      const rot = (Math.random() - 0.5) * 30;
+      setTrails((t) => [...t, { id, x: e.clientX, y: e.clientY, iconIdx, rot }]);
+      setTimeout(() => {
+        setTrails((t) => t.filter((x) => x.id !== id));
+      }, 950);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-[60]">
+      {trails.map((t) => (
+        <div
+          key={t.id}
+          className="absolute"
+          style={{
+            left: t.x,
+            top: t.y,
+            "--r": `${t.rot}deg`,
+            animation: "trail-fade 0.9s ease-out forwards",
+          }}
+          dangerouslySetInnerHTML={{ __html: TRAIL_ICONS[t.iconIdx] }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -8,6 +60,8 @@ export default function Home() {
         <title>Toral Banerjee — Portfolio</title>
         <meta name="description" content="AI agents, HCI, and design" />
       </Head>
+
+      <CursorTrail />
 
       <nav className="fixed top-0 w-full z-50 px-10 py-6 flex justify-between items-center backdrop-blur-sm">
         <span className="text-lg font-bold tracking-tight text-white">toral.dev</span>
@@ -34,10 +88,10 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Hey there, I am Toral!
+              Hey there, I&apos;m Toral.
             </h1>
             <p className="text-lg text-white/70 mb-8 leading-relaxed">
-              Building AI agents that put humans first. Junior undergrad exploring the intersection of agents and human-computer interaction.
+              I build AI agents you can actually <span className="text-pink-300">trust</span> — tools that show their work, admit what they don&apos;t know, and let you replay where they went wrong.
             </p>
             <div className="flex gap-4">
               <a
@@ -119,13 +173,13 @@ export default function Home() {
             className="space-y-6 text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl"
           >
             <p>
-              Most AI gets built capability-first. I am more interested in the other order: start with the <span className="text-pink-300">human</span>, the <span className="text-pink-300">trust</span>, the <span className="text-pink-300">interface</span> — then make it smart.
+              Most AI gets built capability-first — ship the demo, hide the failure modes, hope nobody asks. I work the other way around: start with the <span className="text-pink-300">person</span> on the receiving end, the <span className="text-pink-300">trust</span> they need, the <span className="text-pink-300">interface</span> that earns it — <em>then</em> make it smart.
             </p>
             <p>
-              That is why I work at the intersection of <span className="text-white font-semibold">AI agents</span> and <span className="text-white font-semibold">human-computer interaction</span>.
+              The questions I keep coming back to: how does someone <span className="text-pink-300">know</span> when an agent is wrong? How do you give them a way to <span className="text-pink-300">push back</span>? Where does &quot;automated&quot; stop and &quot;told what to think&quot; begin? I don&apos;t have clean answers yet. I have prototypes — small, real, breakable.
             </p>
             <p>
-              I am a junior undergrad building agents that people can actually rely on — not demos. Scroll down to see what that looks like.
+              I&apos;m a junior undergrad at the intersection of <span className="text-white font-semibold">AI agents</span> and <span className="text-white font-semibold">human-computer interaction</span>.
             </p>
           </motion.div>
         </div>
@@ -170,16 +224,17 @@ export default function Home() {
             Real, working tools — built to be inspected.
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: "900px" }}>
 
             <motion.a
               href="https://agent-trajectory-inspector.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              initial={{ opacity: 0, scale: 0.72, rotateX: 12, z: -120 }}
+              whileInView={{ opacity: 1, scale: 1, rotateX: 0, z: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              style={{ transformStyle: "preserve-3d" }}
               className="group block relative overflow-hidden rounded-2xl border border-white/10 p-7 transition-all duration-500 hover:border-pink-300/40"
               style={{ background: "rgba(255, 255, 255, 0.03)" }}
             >
@@ -220,10 +275,11 @@ export default function Home() {
               href="https://decision-receipt.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              initial={{ opacity: 0, scale: 0.72, rotateX: 12, z: -120 }}
+              whileInView={{ opacity: 1, scale: 1, rotateX: 0, z: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              style={{ transformStyle: "preserve-3d" }}
               className="group block relative overflow-hidden rounded-2xl border border-white/10 p-7 transition-all duration-500 hover:border-pink-300/40"
               style={{ background: "rgba(255, 255, 255, 0.03)" }}
             >
@@ -261,10 +317,11 @@ export default function Home() {
             </motion.a>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              initial={{ opacity: 0, scale: 0.72, rotateX: 12, z: -120 }}
+              whileInView={{ opacity: 1, scale: 1, rotateX: 0, z: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              style={{ transformStyle: "preserve-3d" }}
               className="rounded-2xl border border-dashed border-white/10 p-7 flex flex-col items-center justify-center text-center min-h-[280px]"
             >
               <p className="text-white/30 text-sm font-mono">
